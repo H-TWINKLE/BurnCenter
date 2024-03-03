@@ -1,10 +1,9 @@
 package com.b;
 
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import cn.hutool.http.HttpRequest;
 
-@EnableSpringDataWebSupport
 public class App {
     public static void main(String[] args) {
-
+        //HttpRequest.of("").execute().bodyBytes()
     }
 }
