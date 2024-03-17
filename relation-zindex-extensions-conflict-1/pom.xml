@@ -8,11 +8,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>relation-zindex-extensions-1</artifactId>
+    <artifactId>relation-zindex-extensions-conflict-1</artifactId>
 
-    <properties>
-    </properties>
-
+    <properties/>
 
     <dependencies>
         <dependency>
@@ -31,6 +29,12 @@
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
             <version>3.37.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
         </dependency>
 
     </dependencies>
