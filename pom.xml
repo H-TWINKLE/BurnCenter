@@ -12,7 +12,6 @@
         <module>relation-concept</module>
         <module>relation-dynamic-tp</module>
         <module>relation-easypoi</module>
-        <module>relation-zindex-extensions</module>
         <module>relation-hazelcast</module>
         <module>relation-hutool</module>
         <module>relation-jfinal</module>
@@ -23,6 +22,8 @@
         <module>relation-spring-boot</module>
         <module>relation-spring-cloud</module>
         <module>relation-xxljob</module>
+        <module>relation-zindex-extensions</module>
+        <module>relation-zindex-extensions-1</module>
     </modules>
 
     <version>1.0-SNAPSHOT</version>

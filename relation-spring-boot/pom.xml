@@ -12,6 +12,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
         <!--es-->
         <!--es-->
 
@@ -53,6 +58,12 @@
         <dependency>
             <groupId>cn.easy-es</groupId>
             <artifactId>easy-es-boot-starter</artifactId>
+            <version>2.0.0-beta1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.easy-es</groupId>
+            <artifactId>easy-es-core</artifactId>
             <version>2.0.0-beta1</version>
         </dependency>
 
@@ -119,22 +130,6 @@
             <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
         </dependency>
-
-        <!--springfox-swagger-->
-
-        <!--<dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>-->
-
-        <!--springfox-swagger-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
