@@ -10,12 +10,41 @@
 
     <artifactId>relation-spring-boot</artifactId>
 
+    <properties>
+        <!--todo elasticsearch版本切换，默认值为 6.8.13-->
+        <elasticsearch.version>6.8.12</elasticsearch.version>
+        <!--todo netty版本切换，默认值为 4.1.58.Final-->
+        <netty-all.version>4.1.100.Final</netty-all.version>
+    </properties>
+
     <dependencies>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
+
+        <!--netty-->
+        <!--netty-->
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty-all.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-example</artifactId>
+            <version>${netty-all.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-dev-tools</artifactId>
+            <version>${netty-all.version}</version>
+        </dependency>
+        <!--netty-->
 
         <!--es-->
         <!--es-->
@@ -48,11 +77,6 @@
         <dependency>
             <groupId>org.elasticsearch.plugin</groupId>
             <artifactId>transport-netty4-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
         </dependency>
 
         <dependency>

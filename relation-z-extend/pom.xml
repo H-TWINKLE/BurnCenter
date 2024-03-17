@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>relation-zindex-extensions</artifactId>
+    <artifactId>relation-z-extend</artifactId>
 
     <properties>
     </properties>

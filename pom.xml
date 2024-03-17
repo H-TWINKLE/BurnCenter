@@ -22,8 +22,8 @@
         <module>relation-spring-boot</module>
         <module>relation-spring-cloud</module>
         <module>relation-xxljob</module>
-        <module>relation-zindex-extensions</module>
-        <module>relation-zindex-extensions-conflict-1</module>
+        <module>relation-z-extend</module>
+        <module>relation-z-extend-conflict-1</module>
     </modules>
 
     <version>1.0-SNAPSHOT</version>
