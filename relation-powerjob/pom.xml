@@ -11,7 +11,7 @@
     <artifactId>relation-powerjob</artifactId>
 
     <properties>
-        <powerjob.version>4.3.6</powerjob.version>
+        <powerjob.version>4.3.9</powerjob.version>
     </properties>
 
     <dependencies>
