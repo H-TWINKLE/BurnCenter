@@ -8,16 +8,18 @@
 
 
     <modules>
-        <module>relation-aeron</module>
-        <module>relation-powerjob</module>
-        <module>relation-vertx</module>
-        <!--
+        <module>relation-mysql-connect</module>
         <module>relation-mybatis-flex</module>
+        <module>relation-hutool</module>
+        <!--<module>relation-aeron</module>
+        <module>relation-powerjob</module>
+        <module>relation-vertx</module>-->
+        <!--
         <module>relation-concept</module>
         <module>relation-dynamic-tp</module>
         <module>relation-easypoi</module>
         <module>relation-hazelcast</module>
-        <module>relation-hutool</module>
+
         <module>relation-jfinal</module>
         <module>relation-liteflow</module>
         <module>relation-mybatis-plus</module>
