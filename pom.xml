@@ -8,9 +8,11 @@
 
 
     <modules>
-        <module>relation-mysql-connect</module>
+        <module>relation-doris</module>
+        <module>relation-grpc</module>
+        <!--<module>relation-mysql-connect</module>
         <module>relation-mybatis-flex</module>
-        <module>relation-hutool</module>
+        <module>relation-hutool</module>-->
         <!--<module>relation-aeron</module>
         <module>relation-powerjob</module>
         <module>relation-vertx</module>-->
