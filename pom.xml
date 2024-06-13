@@ -10,6 +10,8 @@
     <modules>
         <module>relation-doris</module>
         <module>relation-grpc</module>
+        <module>relation-hutool</module>
+        <module>relation-mybatis-flex</module>
         <!--<module>relation-mysql-connect</module>
         <module>relation-mybatis-flex</module>
         <module>relation-hutool</module>-->
