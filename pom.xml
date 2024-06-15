@@ -8,10 +8,14 @@
 
 
     <modules>
-        <module>relation-doris</module>
-        <module>relation-grpc</module>
+        <module>relation-flink-watcher</module>
         <module>relation-hutool</module>
-        <module>relation-mybatis-flex</module>
+        <module>relation-liteflow</module>
+        <module>relation-easy-es-ai</module>
+        <!--        <module>relation-doris</module>-->
+        <!--        <module>relation-grpc</module>-->
+        <!--        <module>relation-hutool</module>-->
+        <!--        <module>relation-mybatis-flex</module>-->
         <!--<module>relation-mysql-connect</module>
         <module>relation-mybatis-flex</module>
         <module>relation-hutool</module>-->
