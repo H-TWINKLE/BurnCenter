@@ -8,7 +8,7 @@
 
 
     <modules>
-        <module>relation-flink</module>
+        <!--<module>relation-flink</module>-->
         <!--        <module>relation-flink-watcher</module>-->
         <!--        <module>relation-hutool</module>-->
         <!--        <module>relation-liteflow</module>-->
@@ -39,6 +39,8 @@
         <module>relation-z-extend</module>
         <module>relation-z-extend-conflict-1</module>
         -->
+<!--        <module>relation-seatunnel</module>-->
+        <!--<module>relation-na</module>-->
     </modules>
 
     <version>1.0-SNAPSHOT</version>
