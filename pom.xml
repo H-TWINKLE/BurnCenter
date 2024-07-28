@@ -9,6 +9,7 @@
 
     <modules>
         <module>relation-flink</module>
+        <module>relation-vertx</module>
         <!--<module>relation-flink</module>-->
         <!--        <module>relation-flink-watcher</module>-->
         <!--        <module>relation-hutool</module>-->
