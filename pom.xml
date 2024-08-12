@@ -8,8 +8,13 @@
 
 
     <modules>
-        <module>relation-flink</module>
-        <module>relation-vertx</module>
+        <module>relation-jfinal</module>
+        <module>relation-hutool</module>
+        <module>relation-mybatis-flex</module>
+        <module>relation-java-parser</module>
+        <module>relation-liteflow</module>
+        <!--<module>relation-flink</module>
+        <module>relation-vertx</module>-->
         <!--<module>relation-flink</module>-->
         <!--        <module>relation-flink-watcher</module>-->
         <!--        <module>relation-hutool</module>-->
