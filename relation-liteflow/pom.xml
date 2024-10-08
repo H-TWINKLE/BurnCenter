@@ -11,7 +11,7 @@
     <artifactId>relation-liteflow</artifactId>
 
     <properties>
-        <liteflow.version>2.12.2</liteflow.version>
+        <liteflow.version>2.12.3</liteflow.version>
     </properties>
 
     <dependencies>

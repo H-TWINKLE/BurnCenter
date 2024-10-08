@@ -11,7 +11,7 @@
     <artifactId>relation-hutool</artifactId>
 
     <properties>
-        <hutool.version>5.8.30</hutool.version>
+        <hutool.version>5.8.32</hutool.version>
     </properties>
 
     <dependencies>
