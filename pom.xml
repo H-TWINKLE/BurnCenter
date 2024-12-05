@@ -8,11 +8,13 @@
 
 
     <modules>
+        <module>relation-vertx-impl</module>
+        <!--<module>relation-powerjob</module>-->
         <!--<module>relation-jfinal</module>-->
-        <module>relation-hutool</module>
-        <module>relation-mybatis-flex</module>
+        <!--<module>relation-hutool</module>-->
+        <!--<module>relation-mybatis-flex</module>-->
         <!--<module>relation-java-parser</module>-->
-        <module>relation-liteflow</module>
+        <!--<module>relation-liteflow</module>-->
         <!--<module>relation-flink</module>
         <module>relation-vertx</module>-->
         <!--<module>relation-flink</module>-->
