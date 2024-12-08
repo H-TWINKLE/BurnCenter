@@ -9,9 +9,9 @@
 
     <!-- 3. 定义输出到文件的日志格式和目标 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>myapp.log</file>
+        <file>vertx-proxy.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>myapp.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>vertx-proxy.%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>

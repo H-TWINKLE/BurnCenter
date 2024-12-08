@@ -23,40 +23,78 @@ public class NetClientVeticle extends AbstractVerticle {
     public void start() throws Exception {
         super.start();
 
-        NetServerOptions options = new NetServerOptions();
+        /*WebClientOptions webClientOptions = new WebClientOptions()
+                .setUseAlpn(true)
+                .setSsl(false)
+                .setProtocolVersion(HttpVersion.HTTP_2)
+                .setHttp2ClearTextUpgrade(false)
+                .setTrustAll(true)
+                .setLogActivity(true);
+        WebClient webClient = WebClient.create(vertx, webClientOptions);*/
 
-        String requestURI = Const.URL + "?" + Const.KEY_TARGET + "=" + Const.TARGET_HOST + ":" + Const.TARGET_PORT;
+
+        NetServerOptions options = new NetServerOptions()
+                .setLogActivity(true);
 
         tcpServer = vertx.createNetServer(options);
         tcpServer.connectHandler(socket -> {
-            Buffer buffer = Buffer.buffer();
-            socket.write(buffer);
+            LOGGER.info("client received new connection");
 
-            LOGGER.info("client get client buffer: " + buffer);
-            connectToServer(socket, requestURI, buffer);
+            vertx.createNetClient().connect(Const.WEB_PORT, Const.WEB_HOST, conn -> {
+                if (conn.succeeded()) {
+                    NetSocket serverSocket = conn.result();
 
-            socket.handler(b -> {
-                LOGGER.info("client socket handler buffer " + buffer.toString());
+                    connectToServer(serverSocket);
+
+                    /*webClient.get(Const.WEB_PORT, Const.WEB_HOST, Const.URL)
+                    .addQueryParam(Const.KEY_TARGET, Const.TARGET_HOST + ":" + Const.TARGET_PORT)
+                    .putHeader(HttpHeaders.CONNECTION.toString(), HttpHeaders.UPGRADE.toString())
+                    .sendStream(serverSocket)
+                    .onSuccess(response -> {
+                        // 将HTTP/2响应写回TCP客户端
+                        LOGGER.info("response received" + response.bodyAsString());
+                        LOGGER.info("Received response with status code" + response.statusCode());
+                    })
+                    .onFailure(err -> {
+                        LOGGER.error("error : " + ExceptionUtil.stacktraceToString(err));
+                    });*/
+                }
             });
-            socket.drainHandler(d -> {
+
+
+//            socket.handler(b -> {
+//                LOGGER.info("client socket handler buffer " + b.toString());
+//                webClient.get(Const.WEB_PORT, Const.WEB_HOST, Const.URL)
+//                        .addQueryParam(Const.KEY_TARGET, Const.TARGET_HOST + ":" + Const.TARGET_PORT)
+//                        .putHeader(HttpHeaders.CONNECTION.toString(), HttpHeaders.UPGRADE.toString())
+//                        .sendStream(socket)
+//                        .onSuccess(response -> {
+//                            // 将HTTP/2响应写回TCP客户端
+//                            LOGGER.info("response received" + response.bodyAsString());
+//                            LOGGER.info("Received response with status code" + response.statusCode());
+//                        })
+//                        .onFailure(err -> {
+//                            LOGGER.error("error : " + ExceptionUtil.stacktraceToString(err));
+//                        });
+//            });
+
+            socket.drainHandler(v -> {
                 LOGGER.info("client socket drained");
             });
             socket.exceptionHandler(t -> {
                 LOGGER.info("client socket exception");
                 t.printStackTrace();
             });
-            socket.closeHandler(h -> {
+            socket.closeHandler(v -> {
                 LOGGER.info("client socket closed");
             });
-            socket.endHandler(e -> {
+            socket.endHandler(v -> {
                 LOGGER.info("client socket ended");
             });
 
         });
 
-        tcpServer.listen(Const.LISTEN_PORT, Const.LISTEN_HOST, ar ->
-
-        {
+        tcpServer.listen(Const.LISTEN_PORT, Const.LISTEN_HOST, ar -> {
             if (ar.succeeded()) {
                 LOGGER.info("tcp server started on port " + ar.result().actualPort());
             } else {
@@ -82,44 +120,67 @@ public class NetClientVeticle extends AbstractVerticle {
                 });
     }
 
-    private void connectToServer(NetSocket socket, String requestURI, Buffer buffer) {
+    private void connectToServer(NetSocket clientSocket) {
+        String requestURI = Const.URL + "?" + Const.KEY_TARGET + "=" + Const.TARGET_HOST + ":" + Const.TARGET_PORT;
         HttpClientOptions httpClientOptions = new HttpClientOptions()
-                .setProtocolVersion(HttpVersion.HTTP_2)
                 .setUseAlpn(true)
-                .setHttp2ClearTextUpgrade(true)
-                .setTrustAll(true);
-        HttpClient httpClient = vertx.createHttpClient(httpClientOptions);
-        httpClient.request(HttpMethod.POST, Const.WEB_PORT, Const.WEB_HOST, requestURI)
+                .setSsl(false)
+                .setProtocolVersion(HttpVersion.HTTP_2)
+                .setHttp2ClearTextUpgrade(false)
+                .setTrustAll(true)
+                .setLogActivity(true);
+        vertx.createHttpClient(httpClientOptions)
+                .request(HttpMethod.GET, Const.WEB_PORT, Const.WEB_HOST, requestURI)
                 .onSuccess(result -> {
-                    result.putHeader(HttpHeaderValues.UPGRADE.toString(), HttpHeaderValues.UPGRADE.toString())
-                            .end(buffer);
-                    result.response(resp -> {
+                    result.putHeader(HttpHeaders.CONNECTION, HttpHeaderValues.UPGRADE)
+                            .send(clientSocket, res -> {
+                                HttpClientResponse httpClientResponse = res.result();
+                                if (res.succeeded()) {
+                                    httpClientResponse.handler(b -> {
+                                        LOGGER.info("client httpClientResponse get server buffer: " + b);
+                                        // 将HTTP/2响应写回TCP客户端
+                                        clientSocket.write(b);
+                                        clientSocket.close();
+                                    });
+                                }
+                                if (res.failed()) {
+                                    res.cause().printStackTrace();
+                                }
+
+                            });
+
+                    /*result.response(resp -> {
                         if (resp.succeeded()) {
                             HttpClientResponse httpClientResponse = resp.result();
                             httpClientResponse.handler(b -> {
                                 LOGGER.info("client httpClientResponse get server buffer: " + b);
-                                socket.write(b);
-                                //socket.close();
+
+                                // 将HTTP/2响应写回TCP客户端
+                                clientSocket.write(b);
+                                clientSocket.close();
                             });
                             httpClientResponse.body(b -> {
                                 LOGGER.info("client httpClientResponse handler buffer " + b.toString());
                             });
-                            httpClientResponse.endHandler(b -> {
+                            httpClientResponse.endHandler(v -> {
                                 LOGGER.info("client httpClientResponse end");
                             });
-                            httpClientResponse.streamPriorityHandler(b -> {
-                                LOGGER.info("client httpClientResponse streamPriority" + b.toString());
+                            httpClientResponse.streamPriorityHandler(s -> {
+                                LOGGER.info("client httpClientResponse streamPriority" + s.toString());
                             });
-                            httpClientResponse.exceptionHandler(b -> {
+                            httpClientResponse.exceptionHandler(e -> {
                                 LOGGER.info("client httpClientResponse exceptionHandler");
-                                b.printStackTrace();
+                                e.printStackTrace();
                             });
                             httpClientResponse.customFrameHandler(h -> {
                                 Buffer payload = h.payload();
                                 LOGGER.info("client httpClientResponse customFrameHandler buffer " + payload.toString());
                             });
                         }
-                    });
+                    });*/
+                })
+                .onFailure(e -> {
+                    e.printStackTrace();
                 });
     }
 
